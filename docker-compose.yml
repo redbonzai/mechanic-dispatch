@@ -17,6 +17,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - mechanic-network
 
   api:
     build:
@@ -29,10 +33,28 @@ services:
     env_file:
       - .env
     environment:
+      # Override DATABASE_URL to use Docker service name
       DATABASE_URL: postgresql://postgres:postgres@db:5432/mechanic?schema=public
+      # APP_PORT defaults to 3000 in Dockerfile if not set
+      CLIENT_ORIGIN: http://localhost:4200 #should be set in .env (defaults to true if not set)
+      # STRIPE_SECRET_KEY must be set in .env (required)
+      # STRIPE_WEBHOOK_SECRET must be set in .env (required)
     ports:
       - '3000:3000'
-    command: ['node', 'dist/src/main.js']
+    volumes:
+      # Mount uploads directory for persistence (matches Dockerfile WORKDIR)
+      - uploads_data:/app/uploads
+    restart: unless-stopped
+    networks:
+      - mechanic-network
+    # Note: CMD is already set in Dockerfile, no need to override here
 
 volumes:
   db_data:
+    driver: local
+  uploads_data:
+    driver: local
+
+networks:
+  mechanic-network:
+    driver: bridge
