@@ -1,0 +1,9 @@
+export enum ServiceRequestStatus {
+  PENDING = 'PENDING',
+  AUTHORIZED = 'AUTHORIZED',
+  CAPTURED = 'CAPTURED',
+  CANCELLED = 'CANCELLED',
+  FAILED = 'FAILED',
+  FINALIZED = 'FINALIZED',
+}
+

@@ -1,0 +1,151 @@
+<div class="about-mechanics-page">
+  <section class="hero-section">
+    <div class="container">
+      <h1>Hand Picked, Community Rated Pros</h1>
+    </div>
+  </section>
+
+  <section class="vetting-section">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-text">
+          <h2>Best mechanics from your community</h2>
+          <p>
+            On average our mechanics have over ten years of experience and most are master technicians with ASE Certifications.
+          </p>
+          <p>
+            We extensively screen all of our mechanics with background, criminal, and reference checks.
+          </p>
+          <p>
+            On each mechanic's profile page, you'll see a full list of all their certifications, years of experience, job skills, and feedback from real customers. We constantly monitor the performance of our mechanics to make sure they'll provide you with professional and courteous service.
+          </p>
+          <p>
+            At Mechanic Dispatch, you can trust the people who are working on your car.
+          </p>
+        </div>
+        <div class="mechanic-cards-stack">
+          <div *ngFor="let mechanic of approvedMechanics; let i = index" 
+               class="mechanic-card-stack" 
+               [style.z-index]="approvedMechanics.length - i"
+               [style.transform]="'rotate(' + (i * 2 - 1) + 'deg)'">
+            <div class="approved-badge">APPROVED</div>
+            <div class="mechanic-info">
+              <div class="mechanic-name">{{ mechanic.name }}</div>
+              <div class="mechanic-experience">{{ mechanic.yearsExperience }} years of experience</div>
+              <div class="stars">
+                <span *ngFor="let star of getStars(mechanic.rating); let j = index" 
+                      class="star" 
+                      [class.filled]="j < mechanic.rating">★</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rating-section">
+    <div class="container">
+      <div class="rating-grid">
+        <div class="rate-mechanic">
+          <h2>RATE YOUR MECHANIC</h2>
+          <div class="rating-questions">
+            <div class="question-item">
+              <p>Did your mechanic arrive on time?</p>
+              <div class="rating-dots">
+                <span *ngFor="let dot of [1,2,3,4,5]" class="rating-dot"></span>
+              </div>
+            </div>
+            <div class="question-item">
+              <p>Did your mechanic leave your premises clean?</p>
+              <div class="rating-dots">
+                <span *ngFor="let dot of [1,2,3,4,5]" class="rating-dot"></span>
+              </div>
+            </div>
+            <div class="question-item">
+              <p>How would you rate your mechanic's professionalism?</p>
+              <div class="rating-dots">
+                <span *ngFor="let dot of [1,2,3,4,5]" class="rating-dot"></span>
+              </div>
+            </div>
+            <div class="question-item">
+              <p>Did your mechanic successfully fix/diagnose the problem?</p>
+              <div class="rating-dots">
+                <span *ngFor="let dot of [1,2,3,4,5]" class="rating-dot"></span>
+              </div>
+            </div>
+            <div class="question-item">
+              <p>How likely are you to recommend your mechanic?</p>
+              <div class="rating-dots">
+                <span *ngFor="let dot of [1,2,3,4,5]" class="rating-dot"></span>
+              </div>
+            </div>
+            <div class="overall-rating">
+              <p>Overall rating?</p>
+              <div class="stars-large">
+                <span *ngFor="let star of [1,2,3,4,5]; let i = index" 
+                      class="star" 
+                      [class.filled]="i < 4">★</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="you-decide">
+          <h2>You decide who we keep</h2>
+          <p>
+            Our customers help us decide which mechanics can continue to offer services through Mechanic Dispatch. After every service, we ask our customers to rate their mechanic.
+          </p>
+          <p>
+            Our mechanics are required to maintain the highest service standards to work with us.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="meet-mechanics-section">
+    <div class="container">
+      <h2>Meet some of our mechanics</h2>
+      <div class="mechanics-grid">
+        <article *ngFor="let mechanic of featuredMechanics" class="mechanic-profile-card">
+          <div class="profile-image">
+            <div class="profile-placeholder">{{ mechanic.name.charAt(0) }}</div>
+          </div>
+          <h3>{{ mechanic.name }}</h3>
+          <div class="stars">
+            <span *ngFor="let star of getStars(mechanic.rating); let i = index" 
+                  class="star" 
+                  [class.filled]="i < mechanic.rating">★</span>
+          </div>
+          <div class="badges">
+            <span *ngFor="let cert of mechanic.certifications" class="badge badge-ase">{{ cert }}</span>
+            <span *ngFor="let badge of mechanic.badges" class="badge badge-yellow">{{ badge }}</span>
+          </div>
+          <div class="mechanic-stats">
+            <p>Years of experience: <strong>{{ mechanic.yearsExperience }}</strong></p>
+            <p># of Reviews: <strong>{{ mechanic.reviewCount }}</strong></p>
+          </div>
+          <a [routerLink]="['/mechanic', mechanic.id, generateSlug(mechanic.name)]" class="btn-profile">SEE MECHANIC PROFILE</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>How Can We Help?</h2>
+      <p>
+        Our service team is available 7 days a week, Monday - Friday from 6 AM to 5 PM PST, Saturday - Sunday 7 AM - 4 PM PST.
+      </p>
+      <div class="contact-info">
+        <a href="tel:18449973624">1 (844) 997-3624</a>
+        <a href="mailto:hi&#64;mechanicdispatch.com">hi&#64;mechanicdispatch.com</a>
+      </div>
+      <div class="cta-buttons">
+        <a routerLink="/services" class="btn-secondary">READ FAQ</a>
+        <a routerLink="/request" class="btn-primary">GET A QUOTE</a>
+      </div>
+    </div>
+  </section>
+</div>
+

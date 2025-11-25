@@ -1,0 +1,155 @@
+<section class="hero">
+  <div class="container hero__content">
+    <div class="hero__text">
+      <p class="hero__kicker">Mechanics that make house calls</p>
+      <h1>Mobile mechanic service for your driveway or office</h1>
+      <p class="hero__description">
+        Book certified technicians seven days a week with transparent pricing, instant updates, and
+        a 12-month/12,000-mile guarantee.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" routerLink="/request">Book service ($60 auth)</a>
+        <a class="btn btn--ghost" routerLink="/request">Check availability</a>
+      </div>
+      <div class="hero__stats">
+        <div>
+          <span class="stat__value">2,000+</span>
+          <span class="stat__label">cities served</span>
+        </div>
+        <div>
+          <span class="stat__value">500+</span>
+          <span class="stat__label">services on demand</span>
+        </div>
+        <div>
+          <span class="stat__value">4.9/5</span>
+          <span class="stat__label">customer rating</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__card">
+      <div class="hero__card-header">
+        <p class="hero__card-title">Service where you are</p>
+        <span>7 days a week · Fair pricing · Warranty backed</span>
+      </div>
+      <ul class="hero__card-list">
+        <li>ASE-certified technicians</li>
+        <li>Upfront, itemized estimates</li>
+        <li>Background-checked professionals</li>
+        <li>Contactless checkout available</li>
+      </ul>
+      <a routerLink="/request" class="btn btn--primary btn--full">Start booking</a>
+    </div>
+  </div>
+</section>
+
+<section class="value-props">
+  <div class="container value-props__grid">
+    <div>
+      <h2>Staying on the road should be effortless</h2>
+      <p>
+        Mechanic Dispatch connects you with trusted mobile mechanics who deliver service on your
+        schedule—no waiting rooms, no surprise costs.
+      </p>
+    </div>
+    <div class="value-props__cards">
+      <article>
+        <h3>Transparent pricing</h3>
+        <p>Review fixed-rate estimates before we authorize your service request.</p>
+      </article>
+      <article>
+        <h3>Real-time updates</h3>
+        <p>Track technician ETA, receive arrival alerts, and approve work digitally.</p>
+      </article>
+      <article>
+        <h3>Warranty backed</h3>
+        <p>Every job includes a 12-month/12,000-mile workmanship guarantee.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Popular mobile services</h2>
+      <p>Choose from hundreds of repair and maintenance tasks delivered wherever your car is.</p>
+    </div>
+    <div class="services__grid">
+      <article *ngFor="let service of serviceCards">
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+        <a routerLink="/request">Book now</a>
+      </article>
+    </div>
+    <div class="services__cta">
+      <a routerLink="/request" class="btn btn--secondary">Explore full service list</a>
+    </div>
+  </div>
+</section>
+
+<section class="steps">
+  <div class="container">
+    <div class="section-heading">
+      <h2>How Mechanic Dispatch works</h2>
+      <p>Request. Dispatch. Drive away confident.</p>
+    </div>
+    <div class="steps__timeline">
+      <article *ngFor="let step of steps; let i = index">
+        <div class="step__badge">{{ i + 1 }}</div>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.description }}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="container">
+    <div class="section-heading section-heading--light">
+      <h2>Customers love the convenience</h2>
+      <p>Thousands of drivers keep their vehicles running without visiting a shop.</p>
+    </div>
+    <div class="testimonials__grid">
+      <article *ngFor="let testimonial of testimonials">
+        <p class="quote">“{{ testimonial.quote }}”</p>
+        <p class="name">{{ testimonial.name }}</p>
+        <p class="job">{{ testimonial.job }}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="cities">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Dispatching in 2,000+ cities</h2>
+      <p>Expanding nationwide with vetted mobile mechanics in major metros and surrounding areas.</p>
+    </div>
+    <div class="cities__grid">
+      <div *ngFor="let city of cities" class="city-card">
+        <span class="city-card__name">{{ city.name }}</span>
+        <span class="city-card__state">{{ city.state }}</span>
+      </div>
+    </div>
+    <div class="cities__cta">
+      <a routerLink="/request" class="btn btn--ghost">See full coverage</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container cta__content">
+    <div>
+      <h2>Ready to keep your car on the road?</h2>
+      <p>
+        Book a mobile mechanic in minutes. We authorize $60 today and capture payment only after the
+        job is complete.
+      </p>
+    </div>
+    <div class="cta__actions">
+      <a routerLink="/request" class="btn btn--primary">Schedule now</a>
+      <a routerLink="/request" class="btn btn--ghost">Talk to dispatch</a>
+    </div>
+  </div>
+</section>
+

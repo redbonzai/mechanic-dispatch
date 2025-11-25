@@ -1,0 +1,118 @@
+<div class="mechanic-profile-page" *ngIf="mechanic">
+  <section class="hero-section">
+    <div class="container">
+      <div class="profile-header">
+        <div class="profile-image-section">
+          <div class="profile-image">
+            <div class="profile-placeholder">{{ mechanic.name.charAt(0) }}</div>
+            <div class="badge-yellow" *ngIf="mechanic.badges.length > 0"></div>
+          </div>
+        </div>
+        <div class="profile-info">
+          <h1>{{ mechanic.name }}</h1>
+          <p class="profile-subtitle">
+            Mechanic Dispatch since {{ mechanic.sinceYear }}. {{ mechanic.rating }}-star rated mechanic with
+            {{ mechanic.jobsCompleted.toLocaleString() }}+ jobs completed.
+          </p>
+          <p class="profile-description">{{ mechanic.description }}</p>
+          <button type="button" class="btn-book" (click)="bookMechanic()">Book {{ mechanic.name }}</button>
+        </div>
+        <div class="quote-card">
+          <h3>Request a quote from {{ mechanic.name }}</h3>
+          <form [formGroup]="quoteForm" class="quote-form">
+            <div class="form-group">
+              <label>Service</label>
+              <select formControlName="service">
+                <option value="">Select Service</option>
+                <option *ngFor="let svc of services" [value]="svc">{{ svc }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Vehicle</label>
+              <input
+                formControlName="vehicle"
+                type="text"
+                placeholder="e.g. 2020 Honda Civic"
+                (input)="onYearChange()"
+              />
+            </div>
+            <div class="form-group">
+              <label>Zip Code</label>
+              <input formControlName="zipCode" type="text" placeholder="Enter zip code" />
+            </div>
+            <button type="button" class="btn-primary" (click)="getQuote()">Get a quote</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-mechanics-section">
+    <div class="container">
+      <h2>Meet some of our other highly rated mechanics in {{ mechanic.location }}</h2>
+      <div class="related-mechanics-grid">
+        <div *ngFor="let related of relatedMechanics" class="related-mechanic">
+          <div class="related-image">
+            <div class="profile-placeholder-small">{{ related.name.charAt(0) }}</div>
+          </div>
+          <div class="related-name">{{ related.name }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-section">
+    <div class="container">
+      <h2>Customer Reviews</h2>
+      <div class="reviews-list">
+        <article *ngFor="let review of reviews" class="review-card">
+          <div class="review-main">
+            <div class="review-header">
+              <div class="reviewer-name">{{ review.reviewerName }}</div>
+              <div class="stars">
+                <span *ngFor="let star of getStars(review.rating); let i = index" 
+                      class="star" 
+                      [class.filled]="i < review.rating">★</span>
+              </div>
+              <div class="review-date">{{ review.date }}</div>
+            </div>
+            <div class="service-badge">{{ review.service }}</div>
+            <p class="review-text">{{ review.reviewText }}</p>
+            <div class="review-actions">
+              <button type="button" class="btn-helpful">Helpful ({{ review.helpfulCount }})</button>
+            </div>
+            <div *ngIf="review.mechanicResponse" class="mechanic-response">
+              <strong>{{ mechanic.name }}'s Response:</strong>
+              <p>{{ review.mechanicResponse }}</p>
+            </div>
+          </div>
+          <div class="review-sidebar">
+            <div class="service-icon">🔧</div>
+            <div class="service-details">
+              <p><strong>Service Performed:</strong> {{ review.service }}</p>
+              <p><strong>Vehicle:</strong> {{ review.vehicle }}</p>
+              <p><strong>Date:</strong> {{ review.date }}</p>
+              <p><strong>Location:</strong> {{ review.location }}</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>How can we help?</h2>
+      <p>We're here to help you with all your car repair needs. Contact us today!</p>
+      <div class="cta-buttons">
+        <a routerLink="/request" class="btn-secondary">Contact Us</a>
+        <button type="button" class="btn-primary" (click)="bookMechanic()">Book a Service</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+

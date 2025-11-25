@@ -1,0 +1,140 @@
+<div class="reviews-page">
+  <section class="hero-section">
+    <div class="container">
+      <h1>Reviews From Real People Like You</h1>
+      <p class="hero-subtitle">
+        We believe in transparency and making car repair easy, professional, and safe. Read what our customers have to say about their experiences with our certified mobile mechanics.
+      </p>
+    </div>
+  </section>
+
+  <section class="reviews-content">
+    <div class="container">
+      <div class="reviews-layout">
+        <aside class="filters-sidebar">
+          <div class="review-summary-card">
+            <div class="rating-display">
+              <div class="stars">
+                <span *ngFor="let star of [1,2,3,4,5]; let i = index" 
+                      class="star" 
+                      [class.filled]="i < Math.floor(averageRating)">★</span>
+              </div>
+              <div class="rating-text">
+                <span class="rating-number">{{ averageRating }}/5</span>
+                <span class="total-reviews">{{ totalReviews.toLocaleString() }} reviews</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filters-card">
+            <h3>Filters</h3>
+            <form [formGroup]="filterForm" class="filters-form">
+              <div class="form-group">
+                <label>Rating</label>
+                <select formControlName="rating">
+                  <option value="all">All Ratings</option>
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Star</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Service</label>
+                <select formControlName="service">
+                  <option value="all">All Services</option>
+                  <option *ngFor="let svc of services.slice(1)" [value]="svc">{{ svc }}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Vehicle Make</label>
+                <select formControlName="vehicleMake">
+                  <option value="all">All Makes</option>
+                  <option *ngFor="let make of makes" [value]="make">{{ make }}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Zip Code</label>
+                <input formControlName="zipCode" type="text" placeholder="Enter zip code" />
+              </div>
+
+              <button type="button" class="btn-primary" (click)="updateFilters()">UPDATE</button>
+              <button type="button" class="btn-secondary" (click)="clearFilters()">CLEAR FILTER</button>
+            </form>
+          </div>
+        </aside>
+
+        <main class="reviews-list">
+          <div class="reviews-header">
+            <span class="reviews-count">SHOWING {{ displayedReviews.length.toLocaleString() }} REVIEWS</span>
+            <div class="sort-control">
+              <label>Sort By:</label>
+              <select [value]="sortBy" (change)="onSortChange($event)">
+                <option value="relevance">Relevance</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="highest">Highest Rating</option>
+                <option value="lowest">Lowest Rating</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="review-cards" *ngIf="!isLoading">
+            <article *ngFor="let review of displayedReviews" class="review-card">
+              <div class="review-header">
+                <div class="stars">
+                  <span *ngFor="let star of [1,2,3,4,5]; let i = index" 
+                        class="star" 
+                        [class.filled]="i < review.rating">★</span>
+                </div>
+                <div class="reviewer-info">
+                  <span class="reviewer-name">{{ review.reviewerName }}</span>
+                  <span class="reviewer-location">{{ review.reviewerLocation }}</span>
+                  <span class="review-date">{{ formatDate(review.createdAt).date }} at {{ formatDate(review.createdAt).time }}</span>
+                  <a *ngIf="review.mechanicId" [routerLink]="getMechanicRoute(review.mechanicId, getMechanicName(review.mechanicId))" class="mechanic-info">Services by {{ getMechanicName(review.mechanicId) }}</a>
+                </div>
+              </div>
+              <p class="review-text">{{ review.reviewText }}</p>
+              <div class="review-footer">
+                <div class="car-info">
+                  <div class="car-image-placeholder">{{ review.carYear }} {{ review.carModel }}</div>
+                  <div class="service-info">{{ review.serviceDescription }}</div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="isLoading" class="loading-state">
+            <p>Loading reviews...</p>
+          </div>
+
+          <div class="load-more-section" *ngIf="displayedReviews.length < allReviews.length">
+            <button type="button" class="btn-load-more" (click)="loadMore()">LOAD MORE</button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>How Can We Help?</h2>
+      <div class="hours-info">
+        <p>Monday - Friday 6 AM to 5 PM PST</p>
+        <p>Saturday - Sunday 7 AM - 4 PM PST</p>
+      </div>
+      <div class="contact-info">
+        <a href="tel:18449973624">1-844-997-3624</a>
+        <a href="mailto:hi&#64;mechanicdispatch.com">hi&#64;mechanicdispatch.com</a>
+      </div>
+      <div class="cta-buttons">
+        <a routerLink="/services" class="btn-secondary">READ FAQ</a>
+        <a routerLink="/request" class="btn-primary">GET A QUOTE</a>
+      </div>
+    </div>
+  </section>
+</div>
+

@@ -1,0 +1,105 @@
+<div class="careers-page">
+  <section class="hero-section">
+    <div class="container">
+      <h1>Become a Mechanic</h1>
+      <p class="hero-subtitle">
+        Join our team of certified mobile mechanics and help customers keep their vehicles running smoothly.
+      </p>
+    </div>
+  </section>
+
+  <section class="jobs-section">
+    <div class="container">
+      <div class="jobs-header">
+        <h2>{{ getJobCount() }} of {{ allJobs.length }} Job Opportunities</h2>
+        <form [formGroup]="searchForm" class="search-filters">
+          <input
+            formControlName="search"
+            type="text"
+            placeholder="Search jobs..."
+            (input)="onSearchChange()"
+            class="search-input"
+          />
+          <select formControlName="department" (change)="onSearchChange()" class="filter-select">
+            <option *ngFor="let dept of departments" [value]="dept === 'All Departments' ? 'all' : dept">
+              {{ dept }}
+            </option>
+          </select>
+          <select formControlName="location" (change)="onSearchChange()" class="filter-select">
+            <option *ngFor="let loc of locations" [value]="loc === 'All Locations' ? 'all' : loc">
+              {{ loc }}
+            </option>
+          </select>
+        </form>
+      </div>
+
+      <div class="jobs-list">
+        <article *ngFor="let job of displayedJobs" class="job-card">
+          <div class="job-header">
+            <div class="job-title-section">
+              <h3>{{ job.title }}</h3>
+              <div class="job-meta">
+                <span class="job-type">{{ job.type }}</span>
+                <span class="job-date">Posted: {{ job.postDate }}</span>
+              </div>
+            </div>
+            <div class="job-location-section">
+              <div class="job-location">{{ job.location }}</div>
+              <div class="job-department">{{ job.department }}</div>
+            </div>
+          </div>
+          <div class="job-content">
+            <p class="job-description">{{ job.description }}</p>
+            <div class="job-requirements">
+              <strong>Requirements:</strong>
+              <ul>
+                <li *ngFor="let req of job.requirements">{{ req }}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="job-footer">
+            <button type="button" class="btn-apply">Apply Now</button>
+            <a [routerLink]="['/careers', job.id]" class="btn-details">View Details</a>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="displayedJobs.length === 0" class="no-results">
+        <p>No job opportunities match your search criteria.</p>
+        <button type="button" class="btn-clear-filters" (click)="searchForm.reset(); onSearchChange()">
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>Not Finding What You're Looking For?</h2>
+      <p>Share your information and we will contact you if new opportunities fitting your qualifications become available.</p>
+      <button type="button" class="btn-primary">Share Your Information</button>
+    </div>
+  </section>
+
+  <section class="cta-section-dark">
+    <div class="container">
+      <h2>How Can We Help?</h2>
+      <p>
+        Our service team is available 7 days a week, Monday - Friday from 6 AM to 5 PM PST, Saturday - Sunday 7 AM - 4 PM PST.
+      </p>
+      <div class="contact-info">
+        <a href="tel:18449973624">1 (844) 997-3624</a>
+        <a href="mailto:hi&#64;mechanicdispatch.com">hi&#64;mechanicdispatch.com</a>
+      </div>
+      <div class="cta-buttons">
+        <a routerLink="/services" class="btn-secondary">READ FAQ</a>
+        <a routerLink="/request" class="btn-primary">GET A QUOTE</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+

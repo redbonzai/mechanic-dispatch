@@ -1,0 +1,448 @@
+.about-mechanics-page {
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: #fff;
+  padding: 6rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><path d="M0,200 Q300,100 600,200 T1200,200 L1200,400 L0,400 Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat center;
+    background-size: cover;
+    opacity: 0.3;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.vetting-section {
+  padding: 4rem 0;
+  background: #fff;
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .content-text {
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #1a1a1a;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.mechanic-cards-stack {
+  position: relative;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.mechanic-card-stack {
+  position: absolute;
+  width: 280px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+
+  .approved-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #10b981;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .mechanic-info {
+    margin-top: 2rem;
+
+    .mechanic-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .mechanic-experience {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .stars {
+      display: inline-flex;
+      gap: 0.125rem;
+      font-size: 1.25rem;
+      color: #d1d5db;
+
+      .star {
+        &.filled {
+          color: #2563eb;
+        }
+      }
+    }
+  }
+}
+
+.rating-section {
+  padding: 4rem 0;
+  background: #f9fafb;
+
+  .rating-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+  }
+}
+
+.rate-mechanic {
+  .rating-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .question-item {
+    p {
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: #374151;
+    }
+
+    .rating-dots {
+      display: flex;
+      gap: 0.5rem;
+
+      .rating-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #e5e7eb;
+        border: 2px solid #d1d5db;
+      }
+    }
+  }
+
+  .overall-rating {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e5e7eb;
+
+    p {
+      font-weight: 600;
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+
+    .stars-large {
+      display: inline-flex;
+      gap: 0.25rem;
+      font-size: 2rem;
+      color: #d1d5db;
+
+      .star {
+        &.filled {
+          color: #fbbf24;
+        }
+      }
+    }
+  }
+}
+
+.you-decide {
+  p {
+    line-height: 1.7;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+  }
+}
+
+.meet-mechanics-section {
+  padding: 4rem 0;
+  background: #fff;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+  }
+}
+
+.mechanics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.mechanic-profile-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .profile-image {
+    margin-bottom: 1rem;
+
+    .profile-placeholder {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #6b7280;
+      margin: 0 auto;
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+  }
+
+  .stars {
+    display: inline-flex;
+    gap: 0.125rem;
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 1rem;
+    justify-content: center;
+
+    .star {
+      &.filled {
+        color: #2563eb;
+      }
+    }
+  }
+
+  .badges {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      &.badge-ase {
+        background: #2563eb;
+        color: #fff;
+      }
+
+      &.badge-yellow {
+        background: #fbbf24;
+        color: #1a1a1a;
+      }
+    }
+  }
+
+  .mechanic-stats {
+    margin-bottom: 1.5rem;
+
+    p {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin: 0.5rem 0;
+
+      strong {
+        color: #1a1a1a;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .btn-profile {
+    display: block;
+    width: 100%;
+    padding: 0.875rem;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover {
+      background: #1e40af;
+    }
+  }
+}
+
+.cta-section {
+  background: #1f2937;
+  color: #fff;
+  padding: 4rem 0;
+  text-align: center;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .contact-info {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.125rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    .btn-secondary {
+      padding: 0.875rem 2rem;
+      background: #fff;
+      color: #1f2937;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: #f3f4f6;
+      }
+    }
+
+    .btn-primary {
+      padding: 0.875rem 2rem;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: #1e40af;
+      }
+    }
+  }
+}
+
+@media (max-width: 968px) {
+  .vetting-section .content-grid,
+  .rating-section .rating-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mechanics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mechanic-cards-stack {
+    height: auto;
+    min-height: 300px;
+  }
+
+  .mechanic-card-stack {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none !important;
+    margin-bottom: 1rem;
+  }
+}
+

@@ -1,0 +1,119 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ServiceRequest {
+  id                    String              @id @default(cuid())
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  firstName             String
+  lastName              String
+  email                 String
+  phone                 String
+  addressLine1          String
+  addressLine2          String?
+  city                  String
+  state                 String
+  postalCode            String
+  country               String              @default("US")
+  vehicleMake           String
+  vehicleModel          String
+  vehicleYear           Int
+  amountCents           Int                 @default(6000)
+  finalAmountCents      Int?
+  stripePaymentIntentId String?
+  finalPaymentIntentId  String?
+  stripeCustomerId      String?
+  stripePaymentMethodId String?
+  status                ServiceRequestStatus @default(PENDING)
+  workLogs              MechanicWorkLog[]
+  reviews               Review[]
+}
+
+enum ServiceRequestStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  CANCELLED
+  FAILED
+  FINALIZED
+}
+
+model MechanicWorkLog {
+  id                   String   @id @default(cuid())
+  createdAt            DateTime @default(now())
+  serviceRequestId     String
+  mechanicId           String?
+  mechanicName         String   // Keep for backward compatibility
+  hoursWorkedMinutes   Int
+  payoutPercentage     Int
+  notes                String?
+  serviceRequest       ServiceRequest @relation(fields: [serviceRequestId], references: [id])
+  mechanic             Mechanic? @relation(fields: [mechanicId], references: [id], onDelete: SetNull)
+}
+
+model Mechanic {
+  id                String        @id @default(cuid())
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  name              String
+  slug              String        @unique
+  bio               String?       @db.Text
+  imageUrl          String?
+  location          String
+  yearsExperience   Int
+  rating            Float         @default(0)
+  reviewCount       Int           @default(0)
+  jobsCompleted     Int           @default(0)
+  sinceYear         Int
+  certifications    String[]
+  badges            String[]
+  isActive          Boolean       @default(true)
+  skills            MechanicSkill[]
+  reviews           Review[]
+  workLogs          MechanicWorkLog[]
+}
+
+model Skill {
+  id        String          @id @default(cuid())
+  name      String          @unique
+  category  String?
+  mechanics MechanicSkill[]
+}
+
+model MechanicSkill {
+  id         String   @id @default(cuid())
+  mechanicId String
+  skillId    String
+  mechanic   Mechanic @relation(fields: [mechanicId], references: [id], onDelete: Cascade)
+  skill      Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([mechanicId, skillId])
+}
+
+model Review {
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  rating            Int
+  reviewerName      String
+  reviewerLocation  String
+  reviewText        String   @db.Text
+  carModel          String
+  carYear           Int
+  serviceDescription String
+  mechanicId        String
+  serviceRequestId  String?
+  photoUrls         String[] @default([])
+  mechanic          Mechanic @relation(fields: [mechanicId], references: [id], onDelete: Cascade)
+  serviceRequest    ServiceRequest? @relation(fields: [serviceRequestId], references: [id], onDelete: SetNull)
+
+  @@index([mechanicId])
+  @@index([rating])
+  @@index([createdAt])
+}
+

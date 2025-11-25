@@ -1,0 +1,40 @@
+<div class="services-page">
+  <section class="services-hero">
+    <h1>Our Services</h1>
+    <p class="services-hero__subtitle">
+      Mobile mechanics at your home or office. Transparent pricing, trusted professionals, satisfaction guaranteed.
+    </p>
+  </section>
+
+  <section class="featured-services">
+    <h2>Popular Services</h2>
+    <div class="services-grid">
+      <article *ngFor="let service of featuredServices" class="service-card">
+        <h3 class="service-card__title">{{ service.title }}</h3>
+        <p class="service-card__description">{{ service.description }}</p>
+        <a [routerLink]="service.route" class="service-card__link">Get a quote →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="all-services">
+    <h2>All Services</h2>
+    <div class="services-list">
+      <a *ngFor="let service of allServices" [routerLink]="service.route" class="service-item">
+        <span class="service-item__title">{{ service.title }}</span>
+        <span class="service-item__arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="services-cta">
+    <h2>Need something else?</h2>
+    <p>We offer 500+ automotive services. Our certified mechanics can handle most repairs and maintenance.</p>
+    <a routerLink="/request" class="cta-button">Request a custom service</a>
+  </section>
+</div>
+
+
+
+
+

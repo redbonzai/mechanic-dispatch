@@ -1,0 +1,126 @@
+<div class="service-page">
+  <section class="hero-section">
+    <div class="container">
+      <h1>{{ config.title }}</h1>
+      <p class="hero-subtitle">{{ config.subtitle }}</p>
+      <div class="quote-form">
+        <form [formGroup]="carForm" class="quote-form__input-group">
+          <select formControlName="year" (change)="onYearChange()" class="quote-input">
+            <option value="">Select Year</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+          <select formControlName="make" (change)="onMakeChange()" class="quote-input" [disabled]="!carForm.get('year')?.value || loadingMakes">
+            <option value="">{{ loadingMakes ? 'Loading...' : 'Select Make' }}</option>
+            <option *ngFor="let make of makes" [value]="make">{{ make }}</option>
+          </select>
+          <select formControlName="model" (change)="onModelChange()" class="quote-input" [disabled]="!carForm.get('make')?.value || loadingModels">
+            <option value="">{{ loadingModels ? 'Loading...' : 'Select Model' }}</option>
+            <option *ngFor="let model of models" [value]="model">{{ model }}</option>
+          </select>
+          <select formControlName="trim" (change)="onTrimChange()" class="quote-input" [disabled]="!carForm.get('model')?.value || loadingTrims">
+            <option value="">{{ loadingTrims ? 'Loading...' : 'Select Trim (Optional)' }}</option>
+            <option *ngFor="let trimOption of trims" [value]="trimOption.trim">{{ trimOption.trim }}</option>
+          </select>
+          <div *ngIf="selectedEngineType" class="engine-display">
+            <strong>Engine:</strong> {{ selectedEngineType }}
+          </div>
+          <button type="button" class="btn-primary" (click)="getQuote()" [disabled]="carForm.invalid">
+            {{ config.ctaButtonText || 'GET A FREE QUOTE' }}
+          </button>
+        </form>
+        <div class="quote-form__included">
+          <h3>What's included in the {{ config.description.title.toLowerCase() }}?</h3>
+          <ul>
+            <li *ngFor="let item of config.includedItems">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section">
+    <div class="container">
+      <h2>How much does {{ config.description.title }} cost?</h2>
+      <p class="section-subtitle">{{ config.description.title }} pricing for various cars</p>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>CAR</th>
+            <th>LISTING PRICE</th>
+            <th>YOUR PRICE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of config.pricingTable">
+            <td>{{ row.car }}</td>
+            <td>{{ row.listingPrice }}</td>
+            <td class="price-highlight">{{ row.yourPrice }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="cta-center">
+        <button type="button" class="btn-primary" (click)="getQuote()">{{ config.ctaButtonText || 'GET A FREE QUOTE' }}</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-description">
+    <div class="container">
+      <h2>{{ config.description.title }}</h2>
+      <div class="description-content">
+        <div class="description-text">
+          <p *ngFor="let paragraph of config.description.content">{{ paragraph }}</p>
+          <div *ngFor="let section of config.description.sections">
+            <h3>{{ section.title }}</h3>
+            <p>{{ section.content }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" *ngIf="config.articles && config.articles.length > 0">
+    <div class="container">
+      <h2>Recent articles & questions</h2>
+      <div class="articles-grid">
+        <article *ngFor="let article of config.articles" class="article-card">
+          <h3>{{ article.title }}</h3>
+          <p>{{ article.description }}</p>
+          <a *ngIf="article.link" [routerLink]="article.link" class="article-link">Read more</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>How can we help?</h2>
+      <p>The most convenient way to get your car fixed is to have a mechanic come to you.</p>
+      <form [formGroup]="carForm" class="quote-form__input-group">
+        <select formControlName="year" (change)="onYearChange()" class="quote-input">
+          <option value="">Select Year</option>
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        </select>
+        <select formControlName="make" (change)="onMakeChange()" class="quote-input" [disabled]="!carForm.get('year')?.value || loadingMakes">
+          <option value="">{{ loadingMakes ? 'Loading...' : 'Select Make' }}</option>
+          <option *ngFor="let make of makes" [value]="make">{{ make }}</option>
+        </select>
+        <select formControlName="model" (change)="onModelChange()" class="quote-input" [disabled]="!carForm.get('make')?.value || loadingModels">
+          <option value="">{{ loadingModels ? 'Loading...' : 'Select Model' }}</option>
+          <option *ngFor="let model of models" [value]="model">{{ model }}</option>
+        </select>
+        <select formControlName="trim" (change)="onTrimChange()" class="quote-input" [disabled]="!carForm.get('model')?.value || loadingTrims">
+          <option value="">{{ loadingTrims ? 'Loading...' : 'Select Trim (Optional)' }}</option>
+          <option *ngFor="let trimOption of trims" [value]="trimOption.trim">{{ trimOption.trim }}</option>
+        </select>
+        <div *ngIf="selectedEngineType" class="engine-display">
+          <strong>Engine:</strong> {{ selectedEngineType }}
+        </div>
+        <button type="button" class="btn-primary" (click)="getQuote()" [disabled]="carForm.invalid">
+          {{ config.ctaButtonText || 'GET A FREE QUOTE' }}
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
+
