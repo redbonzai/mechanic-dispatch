@@ -89,9 +89,9 @@ README.md
 !package.json
 
 # =============================================================================
-# Scripts (not needed in Docker image)
+# Scripts (needed for db:setup in Docker image)
 # =============================================================================
-scripts/
+# scripts/ - now included for db:setup
 
 # =============================================================================
 # Old migration files and SQL scripts (not needed)

@@ -6,23 +6,10 @@ set -e
 
 echo "🚀 Setting up database..."
 
-# Check if running in Docker Compose
-if docker compose ps 2>/dev/null | grep -q "mechanic-dispatch"; then
-    echo "📦 Docker Compose detected. Running setup in container..."
-    
-    # Generate Prisma client
-    echo "🔧 Generating Prisma client..."
-    docker compose exec api pnpm prisma generate
-    
-    # Run migrations
-    echo "📋 Applying Prisma migrations..."
-    docker compose exec api pnpm prisma migrate deploy
-    
-    # Run seed
-    echo "🌱 Seeding database..."
-    docker compose exec api pnpm prisma db seed
-    
-    echo "✅ Database setup complete!"
+# Check if running in Docker container
+if [ -f /.dockerenv ]; then
+    echo "📦 Running in Docker container..."
+    # DATABASE_URL should already be set by docker-compose
 else
     echo "💻 Running locally..."
     
@@ -31,19 +18,19 @@ else
         echo "⚠️  DATABASE_URL not set. Using default..."
         export DATABASE_URL="postgresql://postgres:postgres@localhost:15432/mechanic?schema=public"
     fi
-    
-    # Generate Prisma client first (required before migrations and seed)
-    echo "🔧 Generating Prisma client..."
-    pnpm prisma generate
-    
-    # Run migrations
-    echo "📋 Applying Prisma migrations..."
-    pnpm prisma migrate deploy
-    
-    # Run seed
-    echo "🌱 Seeding database..."
-    pnpm prisma db seed
-    
-    echo "✅ Database setup complete!"
 fi
+
+# Generate Prisma client first (required before migrations and seed)
+echo "🔧 Generating Prisma client..."
+pnpm prisma generate
+
+# Run migrations
+echo "📋 Applying Prisma migrations..."
+pnpm prisma migrate deploy
+
+# Run seed
+echo "🌱 Seeding database..."
+pnpm prisma db seed
+
+echo "✅ Database setup complete!"
 

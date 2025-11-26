@@ -14,6 +14,7 @@ RUN npm install -g pnpm && \
 # Copy dependency files first for better layer caching
 COPY package.json nest-cli.json tsconfig.json tsconfig.build.json ./
 COPY prisma ./prisma
+COPY scripts ./scripts
 
 # Install all dependencies (needed for build)
 RUN pnpm install --frozen-lockfile || pnpm install
@@ -53,8 +54,18 @@ COPY package.json ./
 # Copy Prisma files (needed for migrations at runtime if required)
 COPY --from=base /app/prisma ./prisma
 
-# Install only production dependencies (postinstall will generate Prisma client)
+# Copy scripts directory for db:setup
+COPY --from=base /app/scripts ./scripts
+
+# Make scripts executable
+RUN chmod +x scripts/*.sh
+
+# Install only production dependencies
+# Note: tsx is needed for seeding, so it's in dependencies
 RUN pnpm install --prod --frozen-lockfile || pnpm install --prod
+
+# Verify tsx is available (needed for seeding)
+RUN which tsx || (echo "⚠️  tsx not found, installing..." && pnpm add -g tsx || pnpm add tsx)
 
 # Copy built application from base stage
 COPY --from=base /app/dist ./dist
